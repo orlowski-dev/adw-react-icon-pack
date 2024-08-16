@@ -79,7 +79,7 @@ export class ComponentTemplate {
       fileContent: this.content,
     });
 
-    return `${this.fileName}.${config.outputFileExt}`;
+    return this.fileName;
   }
 }
 
