@@ -2,12 +2,16 @@
   "name": "adw-react-icon-pack",
   "version": "0.1.0",
   "description": "Adwaita icon pack for react",
-  "main": "./src/index.ts",
+  "main": "./src/components/adw-react-icon/index.ts",
   "scripts": {
     "generate": "ts-node ./src/index.ts"
   },
   "author": "Patryk Orłowski",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/orlowski-dev/adw-react-icon-pack/tree/main"
+  },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/eslint__js": "^8.42.3",
