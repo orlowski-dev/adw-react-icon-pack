@@ -1,5 +1,5 @@
 import { config } from "./settings";
-import { saveFile, toCamelCase } from "./utils";
+import { generateRandomString, saveFile, toCamelCase } from "./utils";
 
 interface IndexFileArr {
   exportName: string;
@@ -44,6 +44,7 @@ export class ComponentTemplate {
 
   constructor(content: string) {
     this.content = content;
+    this.replaceID();
   }
 
   public getContent(): string {
@@ -52,6 +53,10 @@ export class ComponentTemplate {
 
   public getComponentName(): string {
     return this.componentName;
+  }
+
+  private replaceID() {
+    this.content = this.content.replace("%{id}", generateRandomString(16));
   }
 
   public replaceComponentName() {

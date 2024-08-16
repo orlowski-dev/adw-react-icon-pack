@@ -1,6 +1,4 @@
-"use client";
-
-import { createElement, type HTMLAttributes, useId } from "react";
+import { createElement, type HTMLAttributes } from "react";
 
 interface Props {
   title?: string;
@@ -12,8 +10,8 @@ interface Props {
 }
 
 const SvgTemplate = ({ title, size }: Props) => {
-  const id = useId();
-  const sizeEm = size ? `${size / 16}em` : "1.5em";
+  const id = "%{id}";
+  const sizeEm = size ? `${size / 16}rem` : "1.5rem";
 
   return (
     <svg
