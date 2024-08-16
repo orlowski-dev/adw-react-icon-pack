@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from "fs";
 import { join } from "path";
 import { config } from "./settings";
-import { convert, getTemplateContent } from "./utils";
+import { convert, getTemplateContent, toCamelCase } from "./utils";
 import { ComponentTemplate, IndexFile } from "./classes";
 
 const run = () => {
@@ -23,14 +23,14 @@ const run = () => {
         ComponentTemplate.prototype,
       );
       componentTemplateClone.name = fileName;
-
-      convert({
-        filePath,
-        componentTemplate: componentTemplateClone,
-        indexFile,
-      });
-
-      indexFile.save();
+      console.log(toCamelCase(fileName, true));
+      //convert({
+      //  filePath,
+      //  componentTemplate: componentTemplateClone,
+      //  indexFile,
+      //});
+      //
+      //indexFile.save();
     });
   } catch (err) {
     console.log(err);

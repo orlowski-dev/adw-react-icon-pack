@@ -17,11 +17,7 @@ export const toCamelCase = (str: string, firstUp?: boolean): string => {
   let nextUp = false;
 
   for (let i = 0; i < str.length; i++) {
-    if (str[i] !== "-") {
-      if (!str[i].match(/[a-zA-Z]/)) {
-        continue;
-      }
-
+    if (str[i].match(/[a-zA-Z]/)) {
       if (tempStr.length === 0 && firstUp) {
         tempStr = str[i].toUpperCase();
         nextUp = false;
@@ -33,7 +29,7 @@ export const toCamelCase = (str: string, firstUp?: boolean): string => {
       continue;
     }
 
-    if (str[i + 1] !== "-" && tempStr.length !== 0) {
+    if (str[i + 1].match(/[a-zA-Z]/) && tempStr.length !== 0) {
       nextUp = true;
     }
   }
