@@ -24,7 +24,12 @@ const SvgTemplate = ({ title, size }: Props) => {
       aria-labelledby={title ? id : undefined}
     >
       {title ? <title id={id}>{title}</title> : undefined}
-      <path d="m 12 0 h -1 c -2.214844 0 -4 1.785156 -4 4 v 8 c 0 1.097656 -0.902344 2 -2 2 h -1 c -0.550781 0 -1 0.449219 -1 1 s 0.449219 1 1 1 h 1 c 2.214844 0 4 -1.785156 4 -4 v -8 c 0 -1.097656 0.902344 -2 2 -2 h 1 c 0.550781 0 1 -0.449219 1 -1 s -0.449219 -1 -1 -1 z m 0 0" fill="currentColor"/>
+      <g fill="currentColor">
+        <path d="m 2 3 v 11 h 11 v -2 h -9 v -9 z m 0 0"/>
+        <path d="m 3 -0.0234375 l -3 3.9999995 h 6 z m 0 0"/>
+        <path d="m 16 12.976562 l -4 3 v -6 z m 0 0"/>
+        <path d="m 5 6.839844 v 6.160156 h 4 l 0.09375 -2.511719 l -1.09375 -0.648437 l -1 -3 z m 0 0" fill-opacity="0.33"/>
+    </g>
     </svg>
   );
 };

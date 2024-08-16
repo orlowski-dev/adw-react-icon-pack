@@ -18,6 +18,10 @@ export const toCamelCase = (str: string, firstUp?: boolean): string => {
 
   for (let i = 0; i < str.length; i++) {
     if (str[i] !== "-") {
+      if (!str[i].match(/[a-zA-Z]/)) {
+        continue;
+      }
+
       if (tempStr.length === 0 && firstUp) {
         tempStr = str[i].toUpperCase();
         nextUp = false;
