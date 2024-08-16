@@ -1,6 +1,11 @@
 import { config } from "./settings";
 import { saveFile, toCamelCase } from "./utils";
 
+interface IndexFileArr {
+  exportName: string;
+  fileName: string;
+}
+
 export class SVG {
   private content: string;
 
@@ -35,6 +40,7 @@ export class ComponentTemplate {
   private content: string;
   public name: string;
   private componentName: string;
+  private fileName: string;
 
   constructor(content: string) {
     this.content = content;
@@ -44,16 +50,21 @@ export class ComponentTemplate {
     return this.content;
   }
 
+  public getComponentName(): string {
+    return this.componentName;
+  }
+
   public replaceComponentName() {
     if (!this.name) {
       throw Error("Component name is unset!");
     }
 
-    this.componentName = toCamelCase(this.name, true);
+    this.fileName = toCamelCase(this.name, true);
+    this.componentName = config.componentNamePrefix + this.fileName;
 
     this.content = this.content.replace(
       RegExp("%{componentName}", "g"),
-      config.componentNamePrefix + this.componentName,
+      this.componentName,
     );
   }
 
@@ -61,11 +72,41 @@ export class ComponentTemplate {
     this.content = this.content.replace(RegExp("%{svgContent}"), svgContent);
   }
 
-  public save() {
+  public save(): string {
     saveFile({
-      fileName: this.componentName,
-      fileExt: "tsx",
+      fileName: this.fileName,
+      fileExt: config.outputFileExt,
       fileContent: this.content,
     });
+
+    return `${this.fileName}.${config.outputFileExt}`;
+  }
+}
+
+export class IndexFile {
+  private arr: IndexFileArr[] = [];
+
+  public addItem({ exportName, fileName }: IndexFileArr) {
+    this.arr.push({ exportName, fileName });
+  }
+
+  public getItems(): IndexFileArr[] {
+    return this.arr;
+  }
+
+  public save() {
+    try {
+      let stringToSave = "";
+      this.arr.map((item) => {
+        stringToSave += `export { default as ${item.exportName} } from "./${item.fileName}"\n`;
+      });
+      saveFile({
+        fileName: "index",
+        fileExt: "ts",
+        fileContent: stringToSave,
+      });
+    } catch (err) {
+      console.error(err);
+    }
   }
 }

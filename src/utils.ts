@@ -1,7 +1,7 @@
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
 import { format } from "prettier";
-import { ComponentTemplate, SVG } from "./classes";
+import { ComponentTemplate, IndexFile, SVG } from "./classes";
 import { config } from "./settings";
 
 export const getTemplateContent = (): string => {
@@ -50,7 +50,7 @@ export const saveFile = ({
     const filePath = join(config.outputDir, `${fileName}.${fileExt}`);
     // create output dir if not exist
     if (!existsSync(config.outputDir)) {
-      mkdirSync(config.outputDir);
+      mkdirSync(config.outputDir, { recursive: true });
     }
 
     if (!config.usePrettier) {
@@ -71,9 +71,11 @@ export const saveFile = ({
 export const convert = ({
   filePath,
   componentTemplate,
+  indexFile,
 }: {
   filePath: string;
   componentTemplate: ComponentTemplate;
+  indexFile: IndexFile;
 }) => {
   try {
     console.log(`converting ${filePath}`);
@@ -83,7 +85,11 @@ export const convert = ({
     svg.replaceAttrValue("#222222=currentColor");
     componentTemplate.replaceComponentName();
     componentTemplate.injectSvgContent(svg.getContent());
-    componentTemplate.save();
+    const savedFileName = componentTemplate.save();
+    indexFile.addItem({
+      fileName: savedFileName,
+      exportName: componentTemplate.getComponentName(),
+    });
   } catch (err) {
     console.error(err);
   }

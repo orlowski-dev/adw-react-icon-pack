@@ -2,10 +2,11 @@ import { readdirSync, statSync } from "fs";
 import { join } from "path";
 import { config } from "./settings";
 import { convert, getTemplateContent } from "./utils";
-import { ComponentTemplate } from "./classes";
+import { ComponentTemplate, IndexFile } from "./classes";
 
 const run = () => {
   const componentTemplate = new ComponentTemplate(getTemplateContent());
+  const indexFile = new IndexFile();
 
   try {
     const files = readdirSync(config.sourceDir);
@@ -26,7 +27,10 @@ const run = () => {
       convert({
         filePath,
         componentTemplate: componentTemplateClone,
+        indexFile,
       });
+
+      indexFile.save();
     });
   } catch (err) {
     console.log(err);
