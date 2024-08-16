@@ -1,0 +1,40 @@
+"use client";
+
+import { createElement, type HTMLAttributes, useId } from "react";
+
+interface Props {
+  title?: string;
+  size?: number;
+  wrapper?: "div" | "span";
+  wrapperProps?:
+    | HTMLAttributes<HTMLDivElement>
+    | HTMLAttributes<HTMLSpanElement>;
+}
+
+const SvgTemplate = ({ title, size }: Props) => {
+  const id = useId();
+  const sizeEm = size ? `${size / 16}em` : "1.5em";
+
+  return (
+    <svg
+      height={sizeEm}
+      viewBox="0 0 16 16"
+      width={sizeEm}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-labelledby={title ? id : undefined}
+    >
+      {title ? <title id={id}>{title}</title> : undefined}
+      <path d="m 4 0 c -1.648438 0 -3 1.351562 -3 3 c 0 1.296875 0.839844 2.410156 2 2.824219 v 9.175781 h 2 v -9.175781 c 1.160156 -0.414063 2 -1.527344 2 -2.824219 c 0 -1.648438 -1.351562 -3 -3 -3 z m 8 1 c -0.550781 0 -1 0.449219 -1 1 s 0.449219 1 1 1 s 1 -0.449219 1 -1 s -0.449219 -1 -1 -1 z m -8 0.5 c 0.828125 0 1.5 0.671875 1.5 1.5 s -0.671875 1.5 -1.5 1.5 s -1.5 -0.671875 -1.5 -1.5 s 0.671875 -1.5 1.5 -1.5 z m 8 2.5 c -0.550781 0 -1 0.449219 -1 1 s 0.449219 1 1 1 s 1 -0.449219 1 -1 s -0.449219 -1 -1 -1 z m 0 3 c -0.550781 0 -1 0.449219 -1 1 v 2 c 0 0.054688 0.007812 0.113281 0.015625 0.167969 c -1.167969 0.410156 -2.015625 1.527343 -2.015625 2.832031 c 0 1.648438 1.351562 3 3 3 s 3 -1.351562 3 -3 c 0 -1.304688 -0.847656 -2.421875 -2.015625 -2.832031 c 0.011719 -0.054688 0.015625 -0.113281 0.015625 -0.167969 v -2 c 0 -0.550781 -0.449219 -1 -1 -1 z m 0 4.5 c 0.828125 0 1.5 0.671875 1.5 1.5 s -0.671875 1.5 -1.5 1.5 s -1.5 -0.671875 -1.5 -1.5 s 0.671875 -1.5 1.5 -1.5 z m 0 0" fill="currentColor"/>
+    </svg>
+  );
+};
+
+const AdwPullRequestDraftSymbolic = ({ wrapper, wrapperProps, ...props }: Props) => {
+  if (!wrapper) {
+    return <SvgTemplate {...props} />;
+  }
+
+  return createElement(wrapper, wrapperProps, <SvgTemplate {...props} />);
+};
+
+export default AdwPullRequestDraftSymbolic;

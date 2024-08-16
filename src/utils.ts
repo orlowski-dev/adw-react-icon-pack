@@ -83,6 +83,8 @@ export const convert = ({
     const svg = new SVG(fileContent);
     svg.removeUnwantedTags();
     svg.replaceAttrValue("#222222=currentColor");
+    // system icons have different fill color
+    svg.replaceAttrValue("#2e3434=currentColor");
     componentTemplate.replaceComponentName();
     componentTemplate.injectSvgContent(svg.getContent());
     const savedFileName = componentTemplate.save();
