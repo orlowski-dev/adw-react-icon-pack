@@ -13,11 +13,12 @@ export const getTemplateContent = (): string => {
 };
 
 export const toCamelCase = (str: string, firstUp?: boolean): string => {
+  const regex = RegExp("[a-zA-Z0-9]");
   let tempStr = "";
   let nextUp = false;
 
   for (let i = 0; i < str.length; i++) {
-    if (str[i].match(/[a-zA-Z]/)) {
+    if (str[i].match(regex)) {
       if (tempStr.length === 0 && firstUp) {
         tempStr = str[i].toUpperCase();
         nextUp = false;
@@ -29,7 +30,7 @@ export const toCamelCase = (str: string, firstUp?: boolean): string => {
       continue;
     }
 
-    if (str[i + 1].match(/[a-zA-Z]/) && tempStr.length !== 0) {
+    if (str[i + 1].match(regex) && tempStr.length !== 0) {
       nextUp = true;
     }
   }

@@ -23,14 +23,13 @@ const run = () => {
         ComponentTemplate.prototype,
       );
       componentTemplateClone.name = fileName;
-      console.log(toCamelCase(fileName, true));
-      //convert({
-      //  filePath,
-      //  componentTemplate: componentTemplateClone,
-      //  indexFile,
-      //});
-      //
-      //indexFile.save();
+      convert({
+        filePath,
+        componentTemplate: componentTemplateClone,
+        indexFile,
+      });
+
+      indexFile.save();
     });
   } catch (err) {
     console.log(err);
