@@ -7,4 +7,6 @@ export const config = {
   componentTemplatePath: join(baseDir, "src", "componentTemplate"),
   componentNamePrefix: "Adw",
   outputDir: join(baseDir, "src", "components"),
+  usePrettier: false,
+  prettierOpts: { parser: "babel-ts" },
 };

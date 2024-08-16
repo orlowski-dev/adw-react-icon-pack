@@ -1,5 +1,6 @@
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
+import { format } from "prettier";
 import { ComponentTemplate, SVG } from "./classes";
 import { config } from "./settings";
 
@@ -52,8 +53,16 @@ export const saveFile = ({
       mkdirSync(config.outputDir);
     }
 
-    writeFileSync(filePath, fileContent);
-    console.log("saved", filePath);
+    if (!config.usePrettier) {
+      writeFileSync(filePath, fileContent);
+      console.log("saved", filePath);
+      return;
+    }
+
+    format(fileContent, config.prettierOpts).then((res) => {
+      writeFileSync(filePath, res);
+      console.log("saved", filePath);
+    });
   } catch (err) {
     console.log(err);
   }
