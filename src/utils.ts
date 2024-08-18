@@ -42,7 +42,7 @@ export const toCamelCase = (str: string, firstUp?: boolean): string => {
       continue;
     }
 
-    if (str[i + 1].match(regex) && tempStr.length !== 0) {
+    if (str[i + 1] && str[i + 1].match(regex) && tempStr.length !== 0) {
       nextUp = true;
     }
   }
@@ -95,9 +95,9 @@ export const convert = ({
     const fileContent = readFileSync(filePath, "utf8");
     const svg = new SVG(fileContent);
     svg.removeUnwantedTags();
-    svg.replaceAttrValue("#222222=currentColor");
-    // system icons have different fill color
-    svg.replaceAttrValue("#2e3434=currentColor");
+    svg.replaceFillsValue();
+    svg.replaceKebabCaseAttrs();
+    svg.addMissingFillAttr();
     componentTemplate.replaceComponentName();
     componentTemplate.injectSvgContent(svg.getContent());
     const savedFileName = componentTemplate.save();

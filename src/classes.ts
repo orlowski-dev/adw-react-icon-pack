@@ -34,6 +34,66 @@ export class SVG {
     const [oldValue, newValue] = value.split("=");
     this.content = this.content.replace(RegExp(`${oldValue}`, "g"), newValue);
   }
+
+  public replaceFillsValue() {
+    this.content = this.content.replace(
+      RegExp('fill="[^"]*"', "g"),
+      'fill="currentColor"',
+    );
+  }
+
+  public replaceKebabCaseAttrs() {
+    const words = this.content.split(" ");
+    words.forEach((word) => {
+      if (word.trim().match(/\w+-\w+/)) {
+        const [attrName, attrValue] = word.split("=");
+        this.content = this.content.replace(
+          RegExp(`${word}`, "g"),
+          `${toCamelCase(attrName)}=${attrValue}`,
+        );
+      }
+    });
+  }
+
+  public addMissingFillAttr() {
+    const lines = this.content.split("\n");
+    let isGroupPresent = false;
+
+    // check if group tag is present
+    // if group has fill attr, skip checking groups children
+    lines.forEach((line, index) => {
+      line = line.trim();
+      if (!isGroupPresent && line.startsWith("<g")) {
+        isGroupPresent = true;
+        if (line.includes("fill")) return;
+
+        // add fill attr to the group tag
+        line = [line.slice(0, line.length - 1), 'fill="currentColor">'].join(
+          " ",
+        );
+        lines[index] = line;
+        return;
+      }
+
+      if (isGroupPresent && line.startsWith("</g>")) {
+        isGroupPresent = false;
+        return;
+      }
+
+      if (!isGroupPresent && line.startsWith("<path")) {
+        if (line.includes("fill")) return;
+
+        line = [line.slice(0, line.length - 2), 'fill="currentColor"/>'].join(
+          " ",
+        );
+
+        lines[index] = line;
+        return;
+      }
+    });
+
+    this.content = lines.join("\n");
+  }
 }
 
 export class ComponentTemplate {

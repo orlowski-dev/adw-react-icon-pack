@@ -1,7 +1,7 @@
 import { readdirSync, statSync } from "fs";
 import { join } from "path";
 import { config } from "./settings";
-import { convert, getTemplateContent, toCamelCase } from "./utils";
+import { convert, getTemplateContent } from "./utils";
 import { ComponentTemplate, IndexFile } from "./classes";
 
 const run = () => {
