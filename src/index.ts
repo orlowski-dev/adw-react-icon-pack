@@ -29,9 +29,8 @@ const run = () => {
         componentTemplate: componentTemplateClone,
         indexFile,
       });
-
-      indexFile.save();
     });
+    indexFile.save();
   } catch (err) {
     console.log(err);
   }

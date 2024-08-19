@@ -11,6 +11,8 @@ export class SVG {
 
   constructor(content: string) {
     this.content = content;
+    this.replaceClassWithClassName();
+    this.replacePathsStyleAttr();
   }
 
   public getContent(): string {
@@ -42,11 +44,24 @@ export class SVG {
     );
   }
 
+  private replaceClassWithClassName() {
+    this.content = this.content.replace("class", "className");
+  }
+
+  private replacePathsStyleAttr() {
+    this.content = this.content.replace(RegExp('style="[^"]*"', "g"), "");
+  }
+
   public replaceKebabCaseAttrs() {
     const words = this.content.split(" ");
     words.forEach((word) => {
-      if (word.trim().match(/\w+-\w+/)) {
+      if (word.trim().match("\\b[a-zA-Z]+(-[a-zA-Z]+)+\\b")) {
+        if (word.split(":")[1]) {
+          return;
+        }
+
         const [attrName, attrValue] = word.split("=");
+
         this.content = this.content.replace(
           RegExp(`${word}`, "g"),
           `${toCamelCase(attrName)}=${attrValue}`,
