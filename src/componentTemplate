@@ -7,11 +7,21 @@ interface Props {
   wrapperProps?:
     | HTMLAttributes<HTMLDivElement>
     | HTMLAttributes<HTMLSpanElement>;
+  iconNameAsTitle?: boolean;
 }
 
-const SvgTemplate = ({ title, size }: Props) => {
+const SvgTemplate = ({ title, size, iconNameAsTitle }: Props) => {
   const id = "%{id}";
+  const iconName = "%{iconName}";
   const sizeEm = size ? `${size / 16}rem` : "1.5rem";
+
+  if (title && iconNameAsTitle) {
+    console.error(
+      iconName,
+      ":",
+      "title and iconNameAsTitle props cannot be set together!",
+    );
+  }
 
   return (
     <svg
@@ -22,6 +32,7 @@ const SvgTemplate = ({ title, size }: Props) => {
       aria-labelledby={title ? id : undefined}
     >
       {title ? <title id={id}>{title}</title> : undefined}
+      {iconNameAsTitle ? <title id={id}>{iconName}</title> : undefined}
       %{svgContent}
     </svg>
   );

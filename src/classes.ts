@@ -119,6 +119,10 @@ export class ComponentTemplate {
     this.content = this.content.replace("%{id}", generateRandomString(16));
   }
 
+  public replaceIconName() {
+    this.content = this.content.replace(RegExp("%{iconName}"), this.name);
+  }
+
   public replaceComponentName() {
     if (!this.name) {
       throw Error("Component name is unset!");

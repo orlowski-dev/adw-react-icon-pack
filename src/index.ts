@@ -23,6 +23,7 @@ const run = () => {
         ComponentTemplate.prototype,
       );
       componentTemplateClone.name = fileName;
+      componentTemplateClone.replaceIconName();
       convert({
         filePath,
         componentTemplate: componentTemplateClone,
