@@ -9,7 +9,7 @@ npm i adw-react-icons
 
 ## Usage
 ```typescript
-import { AdwCatSleepingSymbolic } from "adw-react-icon-pack";
+import { AdwCatSleepingSymbolic } from "adw-react-icons";
 
 const App = () => {
     return <>
