@@ -1,5 +1,5 @@
 {
-  "name": "adw-react-icon-pack",
+  "name": "adw-react-icons",
   "version": "1.0.0",
   "description": "Adwaita icon pack for react",
   "main": "./src/components/adw-react-icons/index.ts",

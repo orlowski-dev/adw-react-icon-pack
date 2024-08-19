@@ -4,7 +4,7 @@ Adwaita icon pack for React
 
 ## Installation
 ```bash
-npm i adw-react-icon-pack
+npm i adw-react-icons
 ```
 
 ## Usage
