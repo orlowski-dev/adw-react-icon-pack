@@ -1,7 +1,7 @@
 # Adwaita icon pack for React
 
 ## Usage
-```typescriptreact
+```typescript
 import { AdwCatSleepingSymbolic } from "adw-react-icon-pack";
 
 const App = () => {
@@ -21,4 +21,4 @@ export default App;
 | size            | number                  | true     | Set svg width and height. The given number is converted into rem. |
 | wrapper         | "div" \| "span"         | true     | Add a wrapper for the svg tag.                                    |
 | wrapperProps    | HTMLAttributes<wrapper> | true     | Set wrapper props.                                                |
-| iconNameAsTitle | boolean                 | true     | If true, the svg's title tag will has value of iconName.          |
+| iconNameAsTitle | boolean                 | true     | If true, the svg's title tag will have value of iconName.          |
