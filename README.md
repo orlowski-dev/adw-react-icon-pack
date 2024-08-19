@@ -1,4 +1,11 @@
-# Adwaita icon pack for React
+# About project
+Adwaita icon pack for React
+
+
+## Installation
+```bash
+npm i adw-react-icon-pack
+```
 
 ## Usage
 ```typescript
